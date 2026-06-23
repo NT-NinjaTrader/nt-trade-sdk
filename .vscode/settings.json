@@ -1,0 +1,84 @@
+{
+  // Editor settings
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.rulers": [80],
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 80,
+
+  // TypeScript settings
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+
+  // ESLint settings
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.format.enable": true,
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+
+  // File associations
+  "files.associations": {
+    "*.ts": "typescript",
+    "*.js": "javascript",
+    ".prettierrc": "json",
+    ".eslintrc": "json"
+  },
+
+  // File exclusions
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/*.js.map": true,
+    "**/*.d.ts.map": true
+  },
+
+  // Search exclusions
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/*.js.map": true,
+    "**/*.d.ts.map": true,
+    "**/bun.lock": true
+  },
+
+  // Terminal settings
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.cwd": "${workspaceFolder}",
+
+  // Git settings
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+
+  // Emmet settings
+  "emmet.includeLanguages": {
+    "typescript": "html"
+  },
+
+  // Breadcrumbs
+  "breadcrumbs.enabled": true,
+
+  // Problems panel
+  "problems.decorations.enabled": true,
+
+  // Auto save
+  "files.autoSave": "onFocusChange"
+}
+
+

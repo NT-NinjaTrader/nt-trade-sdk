@@ -1,0 +1,52 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Build-specific overrides
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./",
+    // Output configuration
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    // Module output
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    // Strict compilation for production (but not overly strict)
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false, // Disable for build
+    "noUnusedParameters": false, // Disable for build
+    "exactOptionalPropertyTypes": false, // Disable for build
+    // Build-specific options
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": false,
+    // Path mapping for clean imports
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "sdks/**/*",
+    "errors/**/*",
+    "types/**/*",
+    "utils/**/*",
+    "data/**/*",
+    "api/**/*",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "scripts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "test-*.ts",
+    "**/*.md"
+  ]
+}

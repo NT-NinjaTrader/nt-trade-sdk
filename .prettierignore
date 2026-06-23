@@ -1,0 +1,62 @@
+# Build outputs
+dist/
+html/
+*.js.map
+*.d.ts.map
+
+# Dependencies
+node_modules/
+
+# Generated files
+scripts/cattedapi.json
+scripts/build-api.ts
+
+# Lock files
+bun.lock
+package-lock.json
+yarn.lock
+
+# Documentation files
+*.md
+README*
+
+# Config files
+*.config.js
+*.config.cjs
+*.config.ts
+*.config.json
+.eslintrc.*
+.prettierrc.*
+.prettierignore
+.gitignore
+.lintstagedrc.*
+vitest.config.*
+tsconfig*.json
+.editorconfig
+.env*
+
+# Git hooks and scripts
+.husky/
+*.sh
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.temp
+
+# Only format TypeScript and JavaScript files
+!*.ts
+!*.js
+
+

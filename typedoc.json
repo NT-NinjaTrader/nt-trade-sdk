@@ -1,0 +1,42 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./index.ts"],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "name": "TradeAPI SDK",
+  "readme": "README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "skipErrorChecking": false,
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Main SDK",
+    "API Clients",
+    "Configuration",
+    "Events",
+    "Error Handling",
+    "Utilities",
+    "*"
+  ],
+  "sort": ["alphabetical"],
+  "kindSortOrder": ["Class", "Interface", "TypeAlias", "Function", "Variable"],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/tests/**",
+    "**/examples/**",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "tsconfig": "tsconfig.build.json",
+  "searchInComments": true,
+  "searchInDocuments": true
+}

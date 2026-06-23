@@ -1,0 +1,77 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Main SDK",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/index.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug Reconnection Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test-reconnect.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug Multiplex Socket Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test-multiplex-socket.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug Error Classes Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test-enhanced-errors.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug Build Script",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/build.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}
+
+
