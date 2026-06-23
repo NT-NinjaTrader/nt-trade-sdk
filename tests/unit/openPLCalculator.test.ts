@@ -7,10 +7,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { OpenPLCalculator, type Calculator } from '../../sdks/openPLCalculator';
 import type { Contract, Position, Product } from '../../api/types';
 import type { Quote } from '../../api/mdTypes';
-import type { PartnerSdk } from '../../sdks/partnerSdk';
+import type { TradeClient } from '../../sdks/tradeClient';
 
 describe('openPLCalculator', () => {
-  let mockSdk: Partial<PartnerSdk>;
+  let mockSdk: Partial<TradeClient>;
   let mockClient: any;
   let mockMdClient: any;
   let calculator: Calculator;
@@ -110,7 +110,7 @@ describe('openPLCalculator', () => {
 
   describe('Initialization', () => {
     it('should create calculator successfully', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(calculator).toBeDefined();
       expect(calculator.listen).toBeDefined();
@@ -118,31 +118,31 @@ describe('openPLCalculator', () => {
     });
 
     it('should load initial positions', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockClient.position.list).toHaveBeenCalled();
     });
 
     it('should load contracts for positions', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockClient.contract.items).toHaveBeenCalled();
     });
 
     it('should subscribe to quotes for contracts', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockMdClient.quote.subscribe).toHaveBeenCalledWith({ symbol: 'ESZ5' });
     });
 
     it('should set up position listener', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockClient.listen).toHaveBeenCalledWith('position', expect.any(Function));
     });
 
     it('should set up quote listener', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockMdClient.listen).toHaveBeenCalledWith('quote', expect.any(Function));
     });
@@ -155,7 +155,7 @@ describe('openPLCalculator', () => {
 
       mockClient.contract.items = vi.fn().mockResolvedValue([esContract, nqContract]);
 
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {
         products: ['ES'] // Only ES products
       });
 
@@ -167,7 +167,7 @@ describe('openPLCalculator', () => {
 
   describe('Account Filtering', () => {
     it('should load specific accounts when provided', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {
         accounts: [12345, 67890]
       });
 
@@ -181,7 +181,7 @@ describe('openPLCalculator', () => {
       const position2 = { ...mockPosition, accountId: 22222 };
       mockClient.position.list = vi.fn().mockResolvedValue([position1, position2]);
 
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       expect(mockClient.account.items).toHaveBeenCalledWith({
         query: { ids: [11111, 22222] }
@@ -191,7 +191,7 @@ describe('openPLCalculator', () => {
 
   describe('Position Listener', () => {
     it('should handle new position events', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       // Get the position listener callback
       const positionListenerCall = (mockClient.listen as any).mock.calls.find(
@@ -217,7 +217,7 @@ describe('openPLCalculator', () => {
     });
 
     it('should not resubscribe to existing contracts', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       // Clear previous calls
       (mockMdClient.quote.subscribe as any).mockClear();
@@ -242,7 +242,7 @@ describe('openPLCalculator', () => {
 
   describe('Quote Listener', () => {
     it('should process quote updates', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       // Get the quote listener callback
       const quoteListenerCall = (mockMdClient.listen as any).mock.calls.find(
@@ -265,7 +265,7 @@ describe('openPLCalculator', () => {
     });
 
     it('should calculate P&L correctly', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       // Get the quote listener callback
       const quoteListenerCall = (mockMdClient.listen as any).mock.calls.find(
@@ -291,7 +291,7 @@ describe('openPLCalculator', () => {
 
   describe('Update Interval', () => {
     it('should respect update interval for throttling', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {
         updateInterval: 100 // 100ms throttle
       });
 
@@ -322,7 +322,7 @@ describe('openPLCalculator', () => {
     });
 
     it('should emit on every tick when updateInterval is "tick"', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {
         updateInterval: 'tick'
       });
 
@@ -347,7 +347,7 @@ describe('openPLCalculator', () => {
 
   describe('Cleanup', () => {
     it('should unsubscribe from position events on destroy', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       const positionListener = (mockClient.listen as any).mock.results[0].value;
       calculator.destroy();
@@ -356,7 +356,7 @@ describe('openPLCalculator', () => {
     });
 
     it('should unsubscribe from quotes on destroy', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       calculator.destroy();
 
@@ -366,7 +366,7 @@ describe('openPLCalculator', () => {
 
   describe('Multiple Subscribers', () => {
     it('should support multiple listeners', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       const callback1 = vi.fn();
       const callback2 = vi.fn();
@@ -389,7 +389,7 @@ describe('openPLCalculator', () => {
     });
 
     it('should allow listeners to unsubscribe independently', async () => {
-      calculator = await OpenPLCalculator(mockSdk as PartnerSdk, 'sim', {});
+      calculator = await OpenPLCalculator(mockSdk as TradeClient, 'sim', {});
 
       const callback1 = vi.fn();
       const callback2 = vi.fn();

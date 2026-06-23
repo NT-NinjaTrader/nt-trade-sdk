@@ -90,7 +90,7 @@ export class ConnectionManager extends EventEmitter {
   private lastToken: string | null = null;
   private expirationTime: number | null = null;
   private lastCredentials: Credentials | null = null;
-  private sdk?: any; // Reference to parent PartnerSdk
+  private sdk?: any; // Reference to parent TradeClient
 
   // Shared cache manager for all clients
   private sharedCacheManager: CacheManager;

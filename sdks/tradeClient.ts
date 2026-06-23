@@ -23,7 +23,7 @@ export type ErrorHandler = (error: SdkError) => void;
  * Simplified configuration interface for common use cases.
  * Most partners should use this interface with presets.
  */
-export interface SimplePartnerSdkConfig {
+export interface SimpleTradeClientConfig {
   stage: TdvStage;
   credentials: Credentials;
 
@@ -83,7 +83,7 @@ export interface SimplePartnerSdkConfig {
  * Advanced configuration interface for power users.
  * Contains all configuration options including advanced features.
  */
-export interface AdvancedPartnerSdkConfig extends SimplePartnerSdkConfig {
+export interface AdvancedTradeClientConfig extends SimpleTradeClientConfig {
   // Advanced feature flags
   // useReplaySocket removed - no partners using in production
 
@@ -135,10 +135,10 @@ export interface AdvancedPartnerSdkConfig extends SimplePartnerSdkConfig {
 /**
  * Main configuration interface - supports both simple and advanced configurations
  */
-export type PartnerSdkConfig = SimplePartnerSdkConfig | AdvancedPartnerSdkConfig;
+export type TradeClientConfig = SimpleTradeClientConfig | AdvancedTradeClientConfig;
 
 // Default configuration values - uses standard preset as base
-export const DEFAULT_PARTNER_SDK_CONFIG: Partial<PartnerSdkConfig> = {
+export const DEFAULT_TRADE_CLIENT_CONFIG: Partial<TradeClientConfig> = {
   stage: 'staging',
   preset: 'standard' // Default to standard preset for new partners
 };
@@ -156,7 +156,7 @@ export const DEFAULT_PARTNER_SDK_CONFIG: Partial<PartnerSdkConfig> = {
  * - `'advanced'` - Optimized for high-frequency trading
  *
  * @param {Object} options - configuration options
- * @returns {SimplePartnerSdkConfig} complete SDK configuration ready to use
+ * @returns {SimpleTradeClientConfig} complete SDK configuration ready to use
  *
  * @example
  * ```typescript
@@ -173,7 +173,7 @@ export const DEFAULT_PARTNER_SDK_CONFIG: Partial<PartnerSdkConfig> = {
  *   }
  * });
  *
- * const sdk = new PartnerSdk(config);
+ * const sdk = new TradeClient(config);
  * ```
  *
  * @example
@@ -193,7 +193,7 @@ export function createSimpleConfig(options: {
   enableMarketData?: boolean;
   mode?: 'standard' | 'minimal' | 'advanced';
   clientType?: 'websocket' | 'rest';
-}): SimplePartnerSdkConfig {
+}): SimpleTradeClientConfig {
   const {
     stage,
     credentials,
@@ -241,33 +241,33 @@ export function createSimpleConfig(options: {
 }
 
 /**
- * Event interface for PartnerSdk - provides clean event handling without exposing internal EventEmitter methods.
+ * Event interface for TradeClient - provides clean event handling without exposing internal EventEmitter methods.
  *
  * Exposes only the essential event listening methods (`on`, `once`, `off`) while hiding
  * internal implementation details. The SDK implements this interface to provide a clean,
  * focused API for event handling.
  */
-export interface PartnerSdkEvents {
+export interface TradeClientEvents {
   /** Listen for SDK events. Returns SDK instance for chaining. */
-  on(event: 'connection', listener: (event: ConnectionEvent) => void): PartnerSdk;
-  on(event: 'health', listener: (event: HealthEvent) => void): PartnerSdk;
-  on(event: 'rateLimit', listener: (event: RateLimitEvent) => void): PartnerSdk;
-  on(event: 'cache', listener: (event: CacheEvent) => void): PartnerSdk;
-  on(event: 'queue', listener: (event: QueueEvent) => void): PartnerSdk;
+  on(event: 'connection', listener: (event: ConnectionEvent) => void): TradeClient;
+  on(event: 'health', listener: (event: HealthEvent) => void): TradeClient;
+  on(event: 'rateLimit', listener: (event: RateLimitEvent) => void): TradeClient;
+  on(event: 'cache', listener: (event: CacheEvent) => void): TradeClient;
+  on(event: 'queue', listener: (event: QueueEvent) => void): TradeClient;
 
   /** Listen for SDK events (one-time only). Returns SDK instance for chaining. */
-  once(event: 'connection', listener: (event: ConnectionEvent) => void): PartnerSdk;
-  once(event: 'health', listener: (event: HealthEvent) => void): PartnerSdk;
-  once(event: 'rateLimit', listener: (event: RateLimitEvent) => void): PartnerSdk;
-  once(event: 'cache', listener: (event: CacheEvent) => void): PartnerSdk;
-  once(event: 'queue', listener: (event: QueueEvent) => void): PartnerSdk;
+  once(event: 'connection', listener: (event: ConnectionEvent) => void): TradeClient;
+  once(event: 'health', listener: (event: HealthEvent) => void): TradeClient;
+  once(event: 'rateLimit', listener: (event: RateLimitEvent) => void): TradeClient;
+  once(event: 'cache', listener: (event: CacheEvent) => void): TradeClient;
+  once(event: 'queue', listener: (event: QueueEvent) => void): TradeClient;
 
   /** Remove event listener. Returns SDK instance for chaining. */
-  off(event: 'connection', listener: (event: ConnectionEvent) => void): PartnerSdk;
-  off(event: 'health', listener: (event: HealthEvent) => void): PartnerSdk;
-  off(event: 'rateLimit', listener: (event: RateLimitEvent) => void): PartnerSdk;
-  off(event: 'cache', listener: (event: CacheEvent) => void): PartnerSdk;
-  off(event: 'queue', listener: (event: QueueEvent) => void): PartnerSdk;
+  off(event: 'connection', listener: (event: ConnectionEvent) => void): TradeClient;
+  off(event: 'health', listener: (event: HealthEvent) => void): TradeClient;
+  off(event: 'rateLimit', listener: (event: RateLimitEvent) => void): TradeClient;
+  off(event: 'cache', listener: (event: CacheEvent) => void): TradeClient;
+  off(event: 'queue', listener: (event: QueueEvent) => void): TradeClient;
 }
 
 /** Connection state change event */
@@ -326,7 +326,7 @@ export interface QueueEvent {
  *
  * @example
  * ```typescript
- * const sdk = new PartnerSdk({
+ * const sdk = new TradeClient({
  *   stage: 'staging',
  *   credentials: {
  *     name: 'your-username',
@@ -356,14 +356,14 @@ export interface QueueEvent {
  *
  * ***Note***: Requires [Tradovate API credentials](https://community.tradovate.com/t/how-do-i-access-the-api/2380).
  */
-export class PartnerSdk implements PartnerSdkEvents {
+export class TradeClient implements TradeClientEvents {
   /** The current stage/environment (staging, production) */
   private stage: TdvStage;
   /** Internal logger instance */
   private logger: WinstonLogger;
 
   // Configuration
-  private config: PartnerSdkConfig;
+  private config: TradeClientConfig;
 
   // Core components
   private connectionManager: ConnectionManager;
@@ -386,12 +386,12 @@ export class PartnerSdk implements PartnerSdkEvents {
   } = {};
 
   /**
-   * Creates a new PartnerSdk instance.
+   * Creates a new TradeClient instance.
    *
    * **Configuration Options:**
    * - Use `preset` for quick setup (recommended for most users)
    * - Or configure individual options for fine-grained control
-   * - Supports both `SimplePartnerSdkConfig` and `AdvancedPartnerSdkConfig`
+   * - Supports both `SimpleTradeClientConfig` and `AdvancedTradeClientConfig`
    *
    * **Key Configuration Parameters:**
    * - `stage`: Environment to connect to ('staging' | 'prod')
@@ -402,12 +402,12 @@ export class PartnerSdk implements PartnerSdkEvents {
    * - `enableMdSocket`: Enable market data WebSocket (requires CME approval)
    * - `rateLimiting`: Rate limit configuration to prevent API throttling
    *
-   * @param {PartnerSdkConfig} config - SDK configuration object
+   * @param {TradeClientConfig} config - SDK configuration object
    *
    * @example
    * ```typescript
    * // Preset configuration (recommended)
-   * const sdk = new PartnerSdk({
+   * const sdk = new TradeClient({
    *   stage: 'staging',
    *   credentials: {
    *     name: 'your-username',
@@ -424,7 +424,7 @@ export class PartnerSdk implements PartnerSdkEvents {
    * @example
    * ```typescript
    * // Custom configuration for specific needs
-   * const sdk = new PartnerSdk({
+   * const sdk = new TradeClient({
    *   stage: 'prod',
    *   credentials: { ... },
    *   enableMdSocket: true,      // Enable market data
@@ -437,7 +437,7 @@ export class PartnerSdk implements PartnerSdkEvents {
    * });
    * ```
    */
-  constructor(config: PartnerSdkConfig) {
+  constructor(config: TradeClientConfig) {
     // Initialize internal event emitter (composition pattern)
     this.eventEmitter = new EventEmitter();
 
@@ -445,16 +445,16 @@ export class PartnerSdk implements PartnerSdkEvents {
     let configWithPreset = config;
     if (config.preset) {
       configWithPreset = applyPreset(
-        config as AdvancedPartnerSdkConfig,
+        config as AdvancedTradeClientConfig,
         config.preset
-      ) as AdvancedPartnerSdkConfig;
+      ) as AdvancedTradeClientConfig;
     }
 
     // Merge with defaults - validation already happened in configLoader
     const finalConfig = {
-      ...DEFAULT_PARTNER_SDK_CONFIG,
+      ...DEFAULT_TRADE_CLIENT_CONFIG,
       ...configWithPreset
-    } as AdvancedPartnerSdkConfig;
+    } as AdvancedTradeClientConfig;
 
     this.config = finalConfig;
     this.stage = finalConfig.stage;
@@ -1186,22 +1186,22 @@ export class PartnerSdk implements PartnerSdkEvents {
    * ```
    */
 
-  // Public event methods (implementing PartnerSdkEvents interface)
+  // Public event methods (implementing TradeClientEvents interface)
 
   /** Listen for SDK events. Returns SDK instance for chaining. */
-  on(event: string, listener: (...args: any[]) => void): PartnerSdk {
+  on(event: string, listener: (...args: any[]) => void): TradeClient {
     this.eventEmitter.on(event, listener);
     return this;
   }
 
   /** Listen for SDK events (one-time). Returns SDK instance for chaining. */
-  once(event: string, listener: (...args: any[]) => void): PartnerSdk {
+  once(event: string, listener: (...args: any[]) => void): TradeClient {
     this.eventEmitter.once(event, listener);
     return this;
   }
 
   /** Remove event listener. Returns SDK instance for chaining. */
-  off(event: string, listener: (...args: any[]) => void): PartnerSdk {
+  off(event: string, listener: (...args: any[]) => void): TradeClient {
     this.eventEmitter.off(event, listener);
     return this;
   }

@@ -4,11 +4,11 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { PartnerSdk } from '../../sdks/partnerSdk';
+import { TradeClient } from '../../sdks/tradeClient';
 import { createTestConfig } from '../setup';
 
 describe('TradeSDK', () => {
-  let sdk: PartnerSdk;
+  let sdk: TradeClient;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -26,9 +26,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SEC: 'custom-sec'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -38,9 +38,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_LOGGER_LEVEL: 'debug'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -51,9 +51,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_RATE_LIMIT_GLOBAL_RPH: '50000'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -64,9 +64,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_MQ_ENABLE_PRIORITY: 'true'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });
@@ -77,7 +77,7 @@ describe('TradeSDK', () => {
         const config = createTestConfig({
           TRADE_SDK_SOCKET_CONNECTION_TIMEOUT: '-1000'
         });
-        new PartnerSdk(config);
+        new TradeClient(config);
       }).toThrow('connectionTimeout must be a positive integer (milliseconds)');
     });
 
@@ -86,7 +86,7 @@ describe('TradeSDK', () => {
         const config = createTestConfig({
           TRADE_SDK_RECONNECT_MAX_ATTEMPTS: '-5'
         });
-        new PartnerSdk(config);
+        new TradeClient(config);
       }).toThrow('maxReconnectAttempts must be a positive integer');
     });
 
@@ -95,7 +95,7 @@ describe('TradeSDK', () => {
         const config = createTestConfig({
           TRADE_SDK_RECONNECT_HEALTH_CHECK_INTERVAL: '0'
         });
-        new PartnerSdk(config);
+        new TradeClient(config);
       }).toThrow('healthCheckInterval must be a positive integer (milliseconds)');
     });
   });
@@ -106,9 +106,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_STAGE: 'prod' // Use 'prod' instead of 'production'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -117,9 +117,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_STAGE: 'staging'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -128,9 +128,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_STAGE: 'devel'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -139,9 +139,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_STAGE: 'devel'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });
@@ -153,9 +153,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SIM_CLIENT: 'socket'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -165,9 +165,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SIM_CLIENT: 'rest'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -177,9 +177,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SIM_CLIENT: 'rest'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });
@@ -193,9 +193,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SOCKET_ENTITY_TYPES: '["account", "position", "order"]'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -204,9 +204,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_USE_REPLAY_SOCKET: 'true'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -215,9 +215,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_ENABLE_MD_SOCKET: 'true'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });
@@ -228,9 +228,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SOCKET_SYNC_IMMEDIATE: 'true'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -239,9 +239,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SOCKET_FULL_ORG_SNAPSHOT: 'true'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -250,9 +250,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_SOCKET_CONNECTION_TIMEOUT: '15000'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });
@@ -297,9 +297,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_PRESET: 'standard'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -308,9 +308,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_PRESET: 'minimal'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -319,9 +319,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_PRESET: 'high-frequency'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -330,10 +330,10 @@ describe('TradeSDK', () => {
         TRADE_SDK_PRESET: 'standard'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
       // Standard preset should have WebSocket clients by default
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -343,9 +343,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_ENABLE_MD_SOCKET: 'true' // Override: enable market data
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -355,9 +355,9 @@ describe('TradeSDK', () => {
         TRADE_SDK_RATE_LIMIT_GLOBAL_RPS: '25' // Override: custom rate limit
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });

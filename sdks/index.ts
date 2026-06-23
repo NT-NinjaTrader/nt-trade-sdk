@@ -7,5 +7,5 @@ export { RateLimiter, type RateLimitConfig } from './rateLimiter';
 export { RestApi } from './restApi';
 
 export { Socket } from './socket';
-export { PartnerSdk, type PartnerSdkConfig } from './partnerSdk';
+export { TradeClient, type TradeClientConfig } from './tradeClient';
 export { DEFAULT_WINSTON_CONFIGS, WinstonLogger, createWinstonLogger } from './winstonLogger';

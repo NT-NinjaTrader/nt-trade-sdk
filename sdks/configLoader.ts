@@ -3,7 +3,7 @@ import { ConfigError } from '../api/errors';
 import type { TdvStage } from '../types/common';
 import { DEFAULT_MAINTENANCE_CONFIG } from '../types/maintenance';
 import { type PresetType } from './presetConfigs';
-import type { AdvancedPartnerSdkConfig, PartnerSdkConfig } from './partnerSdk';
+import type { AdvancedTradeClientConfig, TradeClientConfig } from './tradeClient';
 
 // Load environment variables from .env file
 config();
@@ -94,8 +94,8 @@ export interface EnvConfig {
 /** Internal: loads raw config from env without validation */
 function loadConfigFromEnv(
   env: NodeJS.ProcessEnv = process.env
-): Partial<AdvancedPartnerSdkConfig> {
-  const config: Partial<AdvancedPartnerSdkConfig> = {};
+): Partial<AdvancedTradeClientConfig> {
+  const config: Partial<AdvancedTradeClientConfig> = {};
 
   // Required credentials - only set when we have the required fields
   if (env.TRADE_SDK_USERNAME && env.TRADE_SDK_PASSWORD) {
@@ -429,7 +429,7 @@ function loadConfigFromEnv(
  * }
  * ```
  */
-function validateConfig(config: Partial<AdvancedPartnerSdkConfig>): void {
+function validateConfig(config: Partial<AdvancedTradeClientConfig>): void {
   // Validate required fields
   if (!config.credentials) {
     throw new ConfigError(
@@ -862,19 +862,11 @@ function validateConfig(config: Partial<AdvancedPartnerSdkConfig>): void {
       'user',
       'alert',
       'command',
-      'tradovateSubscription',
       'executionReport',
       'cashBalance',
-      'fundTransaction',
-      'marketDataSubscription',
-      'tradingPermission',
       'orderStrategy',
-      'company',
-      'companyFinancials',
       'accountRiskStatus',
       'alertSignal',
-      'adminAlertSignal',
-      'adminAlert',
       'cashBalanceLog',
       'contractMargin'
     ] as const;
@@ -1165,24 +1157,24 @@ function validateConfig(config: Partial<AdvancedPartnerSdkConfig>): void {
 }
 
 /**
- * Creates a complete PartnerSdkConfig by merging environment variables with defaults
+ * Creates a complete TradeClientConfig by merging environment variables with defaults
  *
  * @param env - Optional environment variables object (defaults to process.env)
- * @returns Complete PartnerSdkConfig ready for SDK instantiation
+ * @returns Complete TradeClientConfig ready for SDK instantiation
  *
  * @example
  * ```typescript
  * const config = createConfigFromEnv();
- * const sdk = new PartnerSdk(config);
+ * const sdk = new TradeClient(config);
  * ```
  */
-export function createConfigFromEnv(env: NodeJS.ProcessEnv = process.env): PartnerSdkConfig {
+export function createConfigFromEnv(env: NodeJS.ProcessEnv = process.env): TradeClientConfig {
   const envConfig = loadConfigFromEnv(env);
 
   // Validate the configuration before returning
   validateConfig(envConfig);
 
-  return envConfig as PartnerSdkConfig;
+  return envConfig as TradeClientConfig;
 }
 
 /**

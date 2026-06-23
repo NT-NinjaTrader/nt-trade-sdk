@@ -5,11 +5,11 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { applyPreset, listPresets, PRESET_CONFIGS } from '../../sdks/presetConfigs';
-import { PartnerSdk } from '../../sdks/partnerSdk';
+import { TradeClient } from '../../sdks/tradeClient';
 import { createTestConfig } from '../setup';
 
 describe('Preset Configurations', () => {
-  let sdk: PartnerSdk;
+  let sdk: TradeClient;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -156,49 +156,49 @@ describe('Preset Configurations', () => {
     });
   });
 
-  describe('PartnerSdk Integration', () => {
-    it('should initialize PartnerSdk with standard preset', () => {
+  describe('TradeClient Integration', () => {
+    it('should initialize TradeClient with standard preset', () => {
       const config = createTestConfig({
         TRADE_SDK_PRESET: 'standard'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
-    it('should initialize PartnerSdk with minimal preset', () => {
+    it('should initialize TradeClient with minimal preset', () => {
       const config = createTestConfig({
         TRADE_SDK_PRESET: 'minimal'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
-    it('should initialize PartnerSdk with high-frequency preset', () => {
+    it('should initialize TradeClient with high-frequency preset', () => {
       const config = createTestConfig({
         TRADE_SDK_PRESET: 'high-frequency'
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
-    it('should allow preset overrides in PartnerSdk', () => {
+    it('should allow preset overrides in TradeClient', () => {
       const config = createTestConfig({
         TRADE_SDK_PRESET: 'standard',
         TRADE_SDK_ENABLE_MD_SOCKET: 'true' // Override: enable market data
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
 
@@ -208,9 +208,9 @@ describe('Preset Configurations', () => {
         TRADE_SDK_RATE_LIMIT_GLOBAL_RPS: '30' // Override: custom rate limit
       });
 
-      sdk = new PartnerSdk(config);
+      sdk = new TradeClient(config);
 
-      expect(sdk).toBeInstanceOf(PartnerSdk);
+      expect(sdk).toBeInstanceOf(TradeClient);
       expect(sdk).toBeDefined();
     });
   });

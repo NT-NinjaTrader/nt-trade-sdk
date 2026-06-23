@@ -1,20 +1,24 @@
-# TradeAPI SDK TypeScript
+# NinjaTrader Trade API SDK (TypeScript)
 
-A TypeScript SDK for the TradeAPI platform with WebSocket and REST support, automated reconnection,
-health monitoring, rate limiting, and message queueing.
+A TypeScript SDK for the **NinjaTrader Trade API** and **Market Data API**, with WebSocket
+and REST support, automated reconnection, health monitoring, rate limiting, and message
+queueing.
+
+This SDK is focused on retail trading use cases: managing accounts, placing and tracking
+orders, monitoring positions and balances, and streaming real-time market data.
 
 ## Getting Started
 
 ### Prerequisites
 
 - [Bun](https://bun.sh/) >= 1.0 (or Node.js >= 18)
-- Valid TradeAPI credentials (username, password, appId, cid, sec)
+- Valid API credentials (username, password, appId, cid, sec)
 
-### 1. Fork and Clone
+### 1. Clone and Install
 
 ```bash
-git clone <your-fork-url>
-cd trade-sdk
+git clone https://github.com/NT-NinjaTrader/nt-trade-sdk.git
+cd nt-trade-sdk
 bun install
 ```
 
@@ -44,27 +48,26 @@ TRADE_SDK_PRESET=standard
 ### 3. Run an Example
 
 ```bash
-bun run examples/basic-trading.ts
-bun run examples/simple-pl-calculator.ts
+bun run example:basic        # accounts, positions, orders, contracts
+bun run example:md ESU6      # stream real-time quotes + DOM
+bun run example:pl           # real-time P&L
 ```
 
 See the [examples directory](./examples/) for all available examples:
 
-- **[Basic Trading](./examples/basic-trading.ts)** -- accounts, positions, orders, contract lookup
-- **[Simple P&L Calculator](./examples/simple-pl-calculator.ts)** -- real-time profit/loss monitoring
-- **[Auto-Assign Entitlements](./examples/auto-assign-entitlement.ts)** -- automated entitlement management
-- **[Liquidate Positions](./examples/liquidate-positions.ts)** -- risk management and position closure
-- **[Reset Demo Account](./examples/reset-demo-account.ts)** -- safe account reset with validation
-- **[Switch Risk Category](./examples/switch-risk-category.ts)** -- balance-based risk tier switching
+- **[Basic Trading](./examples/basic-trading.ts)** — accounts, positions, orders, contract lookup
+- **[Market Data](./examples/market-data.ts)** — real-time quotes and Depth of Market
+- **[Simple P&L Calculator](./examples/simple-pl-calculator.ts)** — real-time profit/loss monitoring
+- **[Liquidate Positions](./examples/liquidate-positions.ts)** — close your own positions for risk management
 
 ## Quick Start
 
 ### Using Presets (Recommended)
 
 ```typescript
-import { createConfigFromEnv, PartnerSdk } from './index';
+import { createConfigFromEnv, TradeClient } from './index';
 
-const sdk = new PartnerSdk({
+const sdk = new TradeClient({
   ...createConfigFromEnv(),
   preset: 'standard'
 });
@@ -80,9 +83,9 @@ await sdk.disconnect();
 ### Manual Configuration
 
 ```typescript
-import { PartnerSdk } from './index';
+import { TradeClient } from './index';
 
-const sdk = new PartnerSdk({
+const sdk = new TradeClient({
   stage: 'staging',
   credentials: {
     name: 'your-username',
@@ -102,15 +105,37 @@ await sdk.connect();
 
 | Preset | Use Case |
 |--------|----------|
-| `standard` | Recommended for most partners. WebSocket clients, comprehensive entity updates, caching. |
+| `standard` | Recommended for most developers. WebSocket clients, comprehensive entity updates, caching. |
 | `minimal` | Simplest configuration. Basic WebSocket clients, essential entity updates only. |
 | `high-frequency` | Optimized performance, comprehensive real-time updates, higher rate limits. |
 
 ## SDK Properties
 
-- **`live`** -- API client for live trading operations
-- **`sim`** -- API client for simulation trading operations
-- **`md`** -- Market data API client (requires `enableMdSocket: true`)
+- **`live`** — API client for live trading operations (real money)
+- **`sim`** — API client for simulation trading operations
+- **`md`** — Market data API client (requires `enableMdSocket: true`)
+
+## Market Data
+
+```typescript
+const sdk = new TradeClient({
+  ...createConfigFromEnv(),
+  preset: 'standard',
+  enableMdSocket: true
+});
+
+await sdk.connect();
+
+if (sdk.md) {
+  await sdk.md.quote.subscribe({ symbol: 'ESU6' });
+  await sdk.md.dom.subscribe({ symbol: 'ESU6' });
+
+  sdk.md.listen('quote', event => {
+    const quote = event.quotes[0];
+    console.log(`Bid ${quote.entries.Bid?.price} / Ask ${quote.entries.Offer?.price}`);
+  });
+}
+```
 
 ## Events
 
@@ -157,7 +182,7 @@ For advanced socket, REST, reconnection, rate limiting, message queue, and maint
 configuration, see the [API Reference](docs/public/API_REFERENCE.md).
 
 All configuration options can be set via environment variables (`TRADE_SDK_*`) or passed
-directly to the `PartnerSdk` constructor. Run `bun run generate:env` to see all available options.
+directly to the `TradeClient` constructor. Run `bun run generate:env` to see all available options.
 
 ## Testing
 
@@ -169,9 +194,9 @@ bun run test:coverage       # with coverage
 
 ## Documentation
 
-- [API Reference](docs/public/API_REFERENCE.md) -- complete API documentation
-- [Examples](./examples/) -- working code examples
-- [Contributing](CONTRIBUTING.md) -- development setup and guidelines
+- [API Reference](docs/public/API_REFERENCE.md) — complete API documentation
+- [Examples](./examples/) — working code examples
+- [Contributing](CONTRIBUTING.md) — development setup and guidelines
 
 To generate full TypeDoc documentation (optional):
 

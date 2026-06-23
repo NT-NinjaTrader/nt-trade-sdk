@@ -23,11 +23,6 @@ export type CachedEntity =
   | import('../api/types').CashBalance
   | import('../api/types').Fill
   | import('../api/types').ExecutionReport
-  | import('../api/types').TradingPermission
-  | import('../api/types').MarketDataSubscription
-  | import('../api/types').FundTransaction
-  | import('../api/types').Chat
-  | import('../api/types').ChatMessage
   | import('../api/types').OrderStrategy
   | import('../api/types').User;
 
@@ -233,28 +228,14 @@ export type EntityTypeMap = {
   currency: import('../api/types').Currency;
   currencyRate: import('../api/types').CurrencyRate;
   country: import('../api/types').Country;
-  countryIsBanned: import('../api/types').CountryIsBanned;
-  countryIsBannedResponse: import('../api/types').CountryIsBannedResponse;
 
   // Trading and execution
   fill: import('../api/types').Fill;
   fillFee: import('../api/types').FillFee;
   fillPair: import('../api/types').FillPair;
   executionReport: import('../api/types').ExecutionReport;
-  tradingPermission: import('../api/types').TradingPermission;
-  tradingPermissionConsent: import('../api/types').TradingPermissionConsent;
-  tradingPermissionResponse: import('../api/types').TradingPermissionResponse;
-  tradingPermissionsResponse: import('../api/types').TradingPermissionsResponse;
-
-  // Market data subscriptions
-  marketDataSubscription: import('../api/types').MarketDataSubscription;
-  marketDataSubscriptionPlan: import('../api/types').MarketDataSubscriptionPlan;
-  marketDataSubscriptionExchangeScope: import('../api/types').MarketDataSubscriptionExchangeScope;
-  marketDataSubscriptionResponse: import('../api/types').MarketDataSubscriptionResponse;
 
   // Financial and user management
-  fundTransaction: import('../api/types').FundTransaction;
-  fundTransactionResponse: import('../api/types').FundTransactionResponse;
   cashBalance: import('../api/types').CashBalance;
   cashBalanceLog: import('../api/types').CashBalanceLog;
   cashBalanceSnapshot: import('../api/types').CashBalanceSnapshot;
@@ -263,40 +244,20 @@ export type EntityTypeMap = {
   // User and account management
   user: import('../api/types').User;
   userAccountAutoLiq: import('../api/types').UserAccountAutoLiq;
-  userAccountPositionLimit: import('../api/types').UserAccountPositionLimit;
-  userAccountRiskParameter: import('../api/types').UserAccountRiskParameter;
-  userCertification: import('../api/types').UserCertification;
-  userDevice: import('../api/types').UserDevice;
   userPlugin: import('../api/types').UserPlugin;
   userPromoCode: import('../api/types').UserPromoCode;
   userProperty: import('../api/types').UserProperty;
   userReadStatus: import('../api/types').UserReadStatus;
-  userSession: import('../api/types').UserSession;
-  userSessionStats: import('../api/types').UserSessionStats;
-  userSignedDocument: import('../api/types').UserSignedDocument;
   userStatusMessage: import('../api/types').UserStatusMessage;
 
   // Alerts and notifications
   alert: import('../api/types').Alert;
   alertResponse: import('../api/types').AlertResponse;
   alertSignal: import('../api/types').AlertSignal;
-  adminAlert: import('../api/types').AdminAlert;
-  adminAlertSignal: import('../api/types').AdminAlertSignal;
-  // Note: OtherEnvAdminAlertSignal interface doesn't exist in api/types.ts
-  // Using a generic type for now
-  OtherEnvAdminAlertSignal: Record<string, unknown>;
-
-  // Communication
-  chatMessage: import('../api/types').ChatMessage;
-  chatMessageResponse: import('../api/types').ChatMessageResponse;
 
   // Commands and reports
   command: import('../api/types').Command;
   commandReport: import('../api/types').CommandReport;
-
-  // Tradovate subscriptions
-  tradovateSubscription: import('../api/types').TradovateSubscription;
-  tradovateSubscriptionPlan: import('../api/types').TradovateSubscriptionPlan;
 };
 
 // Type-safe entity lookup

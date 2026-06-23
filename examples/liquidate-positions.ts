@@ -12,7 +12,7 @@
  */
 
 import type { Contract, EventType, Position } from '../index';
-import { createConfigFromEnv, PartnerSdk } from '../index';
+import { createConfigFromEnv, TradeClient } from '../index';
 
 /**
  * Display position information
@@ -26,7 +26,7 @@ function displayPosition(position: Position, contract: Contract): void {
 /**
  * Liquidate a specific position by symbol
  */
-async function liquidatePosition(sdk: PartnerSdk, accountId: number, symbol: string) {
+async function liquidatePosition(sdk: TradeClient, accountId: number, symbol: string) {
   console.log(`\n${'='.repeat(70)}`);
   console.log(`🔒 Liquidating Position: ${symbol} for Account ${accountId}`);
   console.log('='.repeat(70));
@@ -58,7 +58,7 @@ async function liquidatePosition(sdk: PartnerSdk, accountId: number, symbol: str
       body: {
         accountId: accountId,
         contractId: position.contractId,
-        admin: true
+        admin: false
       }
     });
 
@@ -98,7 +98,7 @@ async function liquidatePosition(sdk: PartnerSdk, accountId: number, symbol: str
 /**
  * Liquidate all positions for an account
  */
-async function liquidateAllPositions(sdk: PartnerSdk, accountId: number) {
+async function liquidateAllPositions(sdk: TradeClient, accountId: number) {
   console.log(`\n${'='.repeat(70)}`);
   console.log(`🔒 Liquidating ALL Positions for Account ${accountId}`);
   console.log('='.repeat(70));
@@ -134,7 +134,7 @@ async function liquidateAllPositions(sdk: PartnerSdk, accountId: number) {
     const result = await sdk.sim.order.liquidatePositions({
       body: {
         positions: positionIds,
-        admin: true
+        admin: false
       }
     });
 
@@ -178,7 +178,7 @@ async function liquidateAllPositions(sdk: PartnerSdk, accountId: number) {
 /**
  * Monitor positions in real-time
  */
-async function monitorPositions(sdk: PartnerSdk, accountId: number) {
+async function monitorPositions(sdk: TradeClient, accountId: number) {
   console.log(`\n${'='.repeat(70)}`);
   console.log(`👀 Monitoring Positions for Account ${accountId}`);
   console.log('='.repeat(70) + '\n');
@@ -246,7 +246,7 @@ async function main() {
   }
 
   // Initialize SDK
-  const sdk = new PartnerSdk({
+  const sdk = new TradeClient({
     ...createConfigFromEnv(),
     syncImmediate: true,
     preset: 'standard',

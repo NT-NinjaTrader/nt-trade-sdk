@@ -5,11 +5,11 @@
  * This example shows how to monitor real-time profit & loss for your positions.
  */
 
-import { createConfigFromEnv, PartnerSdk } from '../index';
+import { createConfigFromEnv, TradeClient } from '../index';
 
 async function main() {
   // Initialize SDK with your credentials
-  const sdk = new PartnerSdk({
+  const sdk = new TradeClient({
     ...createConfigFromEnv(),
     syncImmediate: true,
     preset: 'standard', // Includes market data support

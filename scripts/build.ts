@@ -29,19 +29,6 @@ const buildConfigs: BuildConfig[] = [
   }
 ];
 
-async function generateApiTypes() {
-  try {
-    console.log('Generating API types...');
-    const { execSync } = await import('child_process');
-    execSync('bun run scripts/build-api.ts', { stdio: 'inherit', cwd: process.cwd() });
-    console.log('API types generated');
-    return true;
-  } catch (error) {
-    console.error('API type generation failed:', error);
-    return false;
-  }
-}
-
 async function cleanBuildDir() {
   await rm(BUILD_DIR, { recursive: true, force: true });
   await mkdir(BUILD_DIR, { recursive: true });
@@ -95,9 +82,6 @@ async function buildTypes() {
 async function main() {
   console.log('Starting TradeAPI SDK build...\n');
   const startTime = Date.now();
-
-  const apiTypesSuccess = await generateApiTypes();
-  if (!apiTypesSuccess) process.exit(1);
 
   await cleanBuildDir();
 

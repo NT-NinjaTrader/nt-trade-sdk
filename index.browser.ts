@@ -12,7 +12,7 @@ export { MultiplexSocket } from './sdks/multiplexSocket';
 export { RateLimiter } from './sdks/rateLimiter';
 export { RestApi } from './sdks/restApi';
 export { Socket } from './sdks/socket';
-export { PartnerSdk } from './sdks/partnerSdk';
+export { TradeClient } from './sdks/tradeClient';
 
 // Types
 export type * from './types/common';

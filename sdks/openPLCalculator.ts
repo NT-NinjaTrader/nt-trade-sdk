@@ -1,4 +1,4 @@
-import type { PartnerSdk } from '.';
+import type { TradeClient } from '.';
 import type { Account, Contract, Position, Product, Quote } from '../index';
 
 export interface PLListener {
@@ -27,7 +27,7 @@ interface PLSubscriber {
 }
 
 export const OpenPLCalculator = async (
-  sdk: PartnerSdk,
+  sdk: TradeClient,
   mode: 'sim' | 'live',
   config: CalculatorConfig
 ) => {

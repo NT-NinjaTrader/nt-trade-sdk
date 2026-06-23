@@ -4,7 +4,7 @@ This document provides comprehensive API reference for the TradeAPI SDK TypeScri
 
 ## Table of Contents
 
-- [PartnerSdk Class](#partnersdk-class)
+- [TradeClient Class](#tradeclient-class)
 - [ApiClient Class](#apiclient-class)
 - [MdApiClient Class](#mdapiclient-class)
 - [Configuration](#configuration)
@@ -21,7 +21,7 @@ This document provides comprehensive API reference for the TradeAPI SDK TypeScri
 - [Constants](#constants)
 - [Type Definitions](#type-definitions)
 
-## PartnerSdk Class
+## TradeClient Class
 
 The main SDK class that provides a unified interface for connecting to and interacting with the
 TradeAPI service.
@@ -157,9 +157,9 @@ Event listener methods for monitoring SDK state.
 **Signature:**
 
 ```typescript
-on(event: string, listener: (...args: any[]) => void): PartnerSdk
-once(event: string, listener: (...args: any[]) => void): PartnerSdk
-off(event: string, listener: (...args: any[]) => void): PartnerSdk
+on(event: string, listener: (...args: any[]) => void): TradeClient
+once(event: string, listener: (...args: any[]) => void): TradeClient
+off(event: string, listener: (...args: any[]) => void): TradeClient
 ```
 
 **Example:**
@@ -367,7 +367,7 @@ const position = await sdk.live.position.item({ query: { id: 123 } });
 
 ### User Methods
 
-Manage user accounts and permissions.
+Manage user accounts.
 
 **Common Methods:**
 
@@ -376,110 +376,26 @@ Manage user accounts and permissions.
 - `items(ids)` - Get multiple users
 - `find(criteria)` - Search users
 - `suggest(text)` - Get user suggestions
-- `me()` - Get current user info
 
-**Subscription Management:**
+**Account Operations:**
 
-- `addMarketDataSubscription(userId, plan)` - Add market data subscription
-- `addTradovateSubscription(userId, plan)` - Add platform subscription
-- `cancelTradovateSubscription(subscriptionId)` - Cancel subscription
-
-**Trading Permissions:**
-
-- `createTradingPermission(params)` - Grant trading permission *(preferred for Prop Firms)*
-- `revokeTradingPermission(permissionId)` - Revoke trading permission
-- `revokeTradingPermissions(permissionIds)` - Revoke multiple permissions
-- `getAccountTradingPermissions(accountId)` - Get account permissions
-- `accountPermissions(accountId)` - Alias for getAccountTradingPermissions
-
-**Special Operations:**
-
-- `cancelEverything` - Cancel subscriptions, permissions, plugins for user(s)
-- `createNewTrial` - Create new trial account *(admin only)*
-- `createEvaluationUsers` - Create multiple evaluation users *(admin only)*
-- `createEvaluationAccounts` - Create evaluation accounts *(Prop Firm use)*
-
-**Note for Prop Firms:** For Prop Firm operations, much of the permission management is handled through 
-`createEvaluationAccounts`. When you need to manually grant permissions, prefer using `createTradingPermission`.
+- `modifyCredentials(params)` - Modify user credentials
+- `modifyEmailAddress(params)` - Change user email address
+- `modifyPassword(params)` - Change user password
+- `openDemoAccount(params)` - Open a new demo account
 
 **Examples:**
 
 ```typescript
-// Get current user
-const currentUser = await sdk.live.user.me();
+// Find users by name
+const users = await sdk.live.user.find({ body: { name: 'Jane' } });
 
-// Add market data subscription
-await sdk.live.user.addMarketDataSubscription({
-  body: { userId: 123, planId: 456 }
-});
+// Open a new demo account
+await sdk.live.user.openDemoAccount({ body: {} });
 
-// Grant trading permission
-await sdk.live.user.createTradingPermission({
-  body: { userId: 123, accountId: 456 }
-});
-
-// Cancel everything for user(s)
-await sdk.live.user.cancelEverything({
-  body: {
-    userIds: [123, 456],
-    tradovateSubscriptions: true,
-    tradingPermissions: true,
-    userPlugins: true,
-    marketDataSubscriptions: true
-  }
-});
-
-// Create new trial (admin only)
-await sdk.live.user.createNewTrial({ body: {} });
-```
-
-### UserPlugin Methods
-
-Manage user plugin entitlements and permissions.
-
-**Common Methods:**
-
-- `list()` - Get all user plugins
-- `item(id)` - Get specific user plugin
-- `items(ids)` - Get multiple user plugins
-- `create(params)` - Create user plugin *(admin only)*
-- `update(id, params)` - Update user plugin *(admin only)*
-- `deps(id)` - Get dependencies
-- `ldeps(ids)` - Get list dependencies
-
-**Entitlement Management:**
-
-- `addEntitlementSubscription` - Add entitlement subscription
-- `cancelPluginAutorenewal` - Cancel auto-renewal
-- `changePluginPermission` - Change plugin permissions
-- `getEntitlementEligibilityInfo` - Check eligibility
-
-**Examples:**
-
-```typescript
-// Add entitlement subscription
-await sdk.live.userPlugin.addEntitlementSubscription({
-  body: {
-    entitlementId: 456,
-    userId: 123,          // optional
-    accountId: 789,       // optional
-    creditCardId: 101,    // optional
-    nonProSigned: true    // optional
-  }
-});
-
-// Change plugin permissions
-await sdk.live.userPlugin.changePluginPermission({
-  body: {
-    pluginName: 'MyPlugin',
-    approval: true,
-    userId: 123           // optional
-  }
-});
-
-// Check eligibility
-const eligibility = await sdk.live.userPlugin.getEntitlementEligibilityInfo({
-  body: { entitlementId: 456 }
+// Change user password
+await sdk.live.user.modifyPassword({
+  body: { userId: 123, password: 'new-password' }
 });
 ```
 
@@ -614,64 +530,6 @@ await sdk.sim.cashBalance.changeDemoBalance({
 
 - `list()`, `item(id)`, `items(ids)`, `deps(id)`, `ldeps(ids)`, `find(criteria)`, `suggest(text)`
 
-### TradingPermission Methods
-
-Manage trading permissions.
-
-**Methods:**
-
-- `list()`, `item(id)`, `items(ids)`, `deps(id)`, `ldeps(ids)`
-
-**Note for Prop Firms:** For Prop Firm operations, much of the permission management is handled through 
-`user.createEvaluationAccounts`. When you need to manually grant permissions, prefer using `user.createTradingPermission`.
-
-### MarketDataSubscription Methods
-
-Manage market data subscriptions.
-
-**Methods:**
-
-- `list()`, `item(id)`, `items(ids)`, `deps(id)`, `ldeps(ids)`
-- `create(params)` - Create subscription *(admin only)*
-- `update(id, params)` - Update subscription *(admin only)*
-- `add(userId, plan)` - Add subscription for user
-
-### FundTransaction Methods
-
-Manage account funding and transfers. *(admin only)*
-
-**Common Methods:**
-
-- `list()`, `item(id)`, `items(ids)`, `deps(id)`, `ldeps(ids)`
-
-**Special Operations:**
-
-- `walletTransfer` - Transfer funds between accounts
-- `checkStripeFundingEligibility` - Check Stripe funding eligibility
-
-**Examples:**
-
-```typescript
-// List all fund transactions
-const transactions = await sdk.live.fundTransaction.list();
-
-// Transfer funds between accounts
-await sdk.live.fundTransaction.walletTransfer({
-  body: {
-    accountId: 123,
-    fundAmount: 1000,
-    fundCurrencyId: 1,
-    fundDescription: 'Account funding',
-    senderId: 456        // optional
-  }
-});
-
-// Check Stripe funding eligibility
-const eligibility = await sdk.live.fundTransaction.checkStripeFundingEligibility({
-  body: { userId: 123 }
-});
-```
-
 ### Replay Methods
 
 Market replay and simulation controls.
@@ -704,101 +562,11 @@ Support and utility operations.
 
 - `getTimestamp()` - Get server timestamp
 
-### ContactInfo Methods
-
-Manage user contact information.
-
-**Common Methods:**
-
-- `item` - Get specific contact info
-- `items` - Get multiple contact info items
-- `deps` - Get contact info dependencies
-- `ldeps` - Get list dependencies
-
-**Special Methods:**
-
-- `updateContactInfo` - Update complete contact information (address, phone, etc.)
-
-**Examples:**
-
-```typescript
-// Get contact info for a user
-const contactInfo = await sdk.live.contactInfo.item({ query: { id: 123 } });
-
-// Update complete contact information
-await sdk.live.contactInfo.updateContactInfo({
-  body: {
-    userId: 123,
-    firstName: 'John',
-    lastName: 'Doe',
-    streetAddress1: '123 Main St',
-    city: 'New York',
-    state: 'NY',
-    postCode: '10001',
-    country: 'USA',
-    phone: '+1-555-123-4567'
-  }
-});
-```
-
-### AccountRiskStatus Methods
-
-Monitor and manage account risk parameters. *(admin operations)*
-
-**Common Methods:**
-
-- `list()`, `item(id)`, `items(ids)`, `deps(id)`, `ldeps(ids)`
-
-**Risk Management:**
-
-- `updateMaxNetLiq(accountId, maxNetLiq)` - Update max net liquidation value
-- `setAdminAutoLiqAction(accountId, action)` - Set auto-liquidation action
-- `resetAutoLiqStatus(accountId)` - Reset auto-liquidation status
-- `setAccountNotes(accountId, notes)` - Add risk notes
-- `setDemoHalt(accountId, reason)` - Halt demo account
-- `switchRiskCategory(accountId, category)` - Change risk category
-
-**Examples:**
-
-```typescript
-// Set max net liquidation
-await sdk.live.accountRiskStatus.updateMaxNetLiq({
-  body: { accountId: 123, maxNetLiquidation: 50000 }
-});
-
-// Set auto-liquidation
-await sdk.live.accountRiskStatus.setAdminAutoLiqAction({
-  body: { accountId: 123, autoLiqAction: 'Liquidate' }
-});
-```
-
 ### Additional Methods
-
-**TradovateSubscription, TradovateSubscriptionPlan:**
-
-- Standard CRUD operations and list/find methods
-- *(admin only for create/update)*
 
 **AgreementDocumentTemplate, CustomerApplication:**
 
 - `create(params)`, `update(id, params)` *(admin only)*
-
-**UserAccountAutoLiq:**
-
-- `create(params)`, `update(id, params)`, `updateUserAutoLiq(params)`
-- **Note:** `create()` is available to non-admin users (exception to the general rule)
-
-**UserAccountPositionLimit:**
-
-- `create(params)`, `update(id, params)`
-- `deleteUserAccountPositionLimit(id)`
-- `deleteUserAccountRiskParameter(id)`
-- **Note:** `create()` is available to non-admin users (exception to the general rule)
-
-**UserAccountRiskParameter:**
-
-- `create(params)`, `update(id, params)`
-- **Note:** `create()` is available to non-admin users (exception to the general rule)
 
 ## MdApiClient Class
 
@@ -982,12 +750,12 @@ listener.unlisten();
 
 The SDK provides two configuration interfaces to accommodate different use cases:
 
-#### SimplePartnerSdkConfig
+#### SimpleTradeClientConfig
 
-For most partners - covers common configuration options:
+For most developers - covers common configuration options:
 
 ```typescript
-interface SimplePartnerSdkConfig {
+interface SimpleTradeClientConfig {
   // Required
   stage: TdvStage;
   credentials: Credentials;
@@ -1042,12 +810,12 @@ interface SimplePartnerSdkConfig {
 }
 ```
 
-#### AdvancedPartnerSdkConfig
+#### AdvancedTradeClientConfig
 
 For power users needing full control:
 
 ```typescript
-interface AdvancedPartnerSdkConfig extends SimplePartnerSdkConfig {
+interface AdvancedTradeClientConfig extends SimpleTradeClientConfig {
   // Advanced connection settings
   shardingDivisor?: number;
   shardingType?: 'modUserId' | 'modAccountId';
@@ -1179,14 +947,14 @@ interface WinstonLoggerConfig {
 
 ### Preset Configuration System
 
-The SDK provides preset configurations for common use cases. Using presets is the recommended approach for most partners.
+The SDK provides preset configurations for common use cases. Using presets is the recommended approach for most developers.
 
 #### Available Presets
 
 
 | Preset           | Description                                                                                                               |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `standard`       | Recommended for most partners. WebSocket clients, comprehensive entity updates, intelligent caching, market data enabled. |
+| `standard`       | Recommended for most developers. WebSocket clients, comprehensive entity updates, intelligent caching, market data enabled. |
 | `minimal`        | Simplest configuration. Basic WebSocket clients, essential entity updates only.                                           |
 | `high-frequency` | Optimized for high-frequency trading with aggressive caching and higher rate limits.                                      |
 | `development`    | For development and testing. REST clients, verbose logging, relaxed rate limits.                                          |
@@ -1213,7 +981,7 @@ Get a specific preset configuration.
 **Signature:**
 
 ```typescript
-function getPreset(preset: PresetType): Partial<AdvancedPartnerSdkConfig>
+function getPreset(preset: PresetType): Partial<AdvancedTradeClientConfig>
 ```
 
 **Example:**
@@ -1248,7 +1016,7 @@ presets.forEach(p => console.log(`${p.name}: ${p.description}`));
 
 ```typescript
 // Recommended: Use preset configuration
-const sdk = new PartnerSdk({
+const sdk = new TradeClient({
   stage: 'staging',
   credentials: {
     name: 'your-username',
@@ -1277,7 +1045,7 @@ function createSimpleConfig(options: {
   enableMarketData?: boolean;
   mode?: 'standard' | 'minimal' | 'advanced';
   clientType?: 'websocket' | 'rest';
-}): SimplePartnerSdkConfig
+}): SimpleTradeClientConfig
 ```
 
 **Parameters:**
@@ -1291,7 +1059,7 @@ function createSimpleConfig(options: {
 **Example:**
 
 ```typescript
-import { createSimpleConfig, PartnerSdk } from './index';
+import { createSimpleConfig, TradeClient } from './index';
 
 // Basic usage with defaults
 const config = createSimpleConfig({
@@ -1306,7 +1074,7 @@ const config = createSimpleConfig({
   }
 });
 
-const sdk = new PartnerSdk(config);
+const sdk = new TradeClient(config);
 ```
 
 ```typescript
@@ -1321,24 +1089,24 @@ const config = createSimpleConfig({
 
 #### `createConfigFromEnv()`
 
-Creates a PartnerSdk configuration from environment variables with validation.
+Creates a TradeClient configuration from environment variables with validation.
 
 **Signature:**
 
 ```typescript
-function createConfigFromEnv(env?: NodeJS.ProcessEnv): PartnerSdkConfig
+function createConfigFromEnv(env?: NodeJS.ProcessEnv): TradeClientConfig
 ```
 
 **Example:**
 
 ```typescript
-import { createConfigFromEnv, PartnerSdk } from './index';
+import { createConfigFromEnv, TradeClient } from './index';
 
 // Direct usage
-const sdk = new PartnerSdk(createConfigFromEnv());
+const sdk = new TradeClient(createConfigFromEnv());
 
 // With overrides
-const sdk = new PartnerSdk({
+const sdk = new TradeClient({
   ...createConfigFromEnv(),
   enableMdSocket: true,
   preset: 'standard'
@@ -1805,7 +1573,7 @@ Create a real-time P&L calculator.
 
 ```typescript
 async function OpenPLCalculator(
-  sdk: PartnerSdk,
+  sdk: TradeClient,
   mode: 'sim' | 'live',
   config: CalculatorConfig
 ): Promise<Calculator>
@@ -1814,9 +1582,9 @@ async function OpenPLCalculator(
 **Example:**
 
 ```typescript
-import { PartnerSdk, OpenPLCalculator } from './index';
+import { TradeClient, OpenPLCalculator } from './index';
 
-const sdk = new PartnerSdk({
+const sdk = new TradeClient({
   stage: 'staging',
   credentials: { /* ... */ },
   enableMdSocket: true  // Required for P&L calculator

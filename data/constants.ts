@@ -60,8 +60,6 @@ interface TdvUrlConstants {
 export const entityNames: EntityName[] = [
   'account',
   'accountRiskStatus',
-  'adminAlertSignal',
-  'adminAlert',
   'cashBalance',
   'cashBalanceLog',
   'command',
@@ -74,16 +72,10 @@ export const entityNames: EntityName[] = [
   'executionReport',
   'fill',
   'fillPair',
-  'marketDataSubscription',
-  'marketDataSubscriptionPlan',
   'order',
   'orderStrategy',
-  'OtherEnvAdminAlertSignal',
   'position',
   'product',
   'productMargin',
-  'tradingPermission',
-  'tradovateSubscription',
-  'tradovateSubscriptionPlan',
   'user'
 ];

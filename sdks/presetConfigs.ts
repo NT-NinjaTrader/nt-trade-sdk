@@ -5,7 +5,7 @@
  * guiding partners toward best practices while keeping configuration simple.
  */
 
-import type { AdvancedPartnerSdkConfig } from './partnerSdk';
+import type { AdvancedTradeClientConfig } from './tradeClient';
 
 /**
  * Available preset configurations
@@ -21,7 +21,7 @@ export const PRESET_TYPES = ['standard', 'minimal', 'high-frequency', 'developme
 /**
  * Preset configuration definitions
  */
-export const PRESET_CONFIGS: Record<PresetType, Partial<AdvancedPartnerSdkConfig>> = {
+export const PRESET_CONFIGS: Record<PresetType, Partial<AdvancedTradeClientConfig>> = {
   /**
    * Standard Partner Preset
    *
@@ -375,16 +375,16 @@ export const PRESET_CONFIGS: Record<PresetType, Partial<AdvancedPartnerSdkConfig
 };
 
 /**
- * Applies a preset configuration to a PartnerSdkConfig
+ * Applies a preset configuration to a TradeClientConfig
  *
- * @param {AdvancedPartnerSdkConfig} config - the base configuration
+ * @param {AdvancedTradeClientConfig} config - the base configuration
  * @param {PresetType} preset - the preset to apply
- * @returns {AdvancedPartnerSdkConfig} merged configuration with preset applied
+ * @returns {AdvancedTradeClientConfig} merged configuration with preset applied
  */
 export function applyPreset(
-  config: Partial<AdvancedPartnerSdkConfig>,
+  config: Partial<AdvancedTradeClientConfig>,
   preset: PresetType
-): Partial<AdvancedPartnerSdkConfig> {
+): Partial<AdvancedTradeClientConfig> {
   const presetConfig = PRESET_CONFIGS[preset];
 
   // Deep merge the preset with the provided config
@@ -423,9 +423,9 @@ export function applyPreset(
  * Gets a preset configuration by name
  *
  * @param {PresetType} preset - the preset name
- * @returns {Partial<AdvancedPartnerSdkConfig>} the preset configuration
+ * @returns {Partial<AdvancedTradeClientConfig>} the preset configuration
  */
-export function getPreset(preset: PresetType): Partial<AdvancedPartnerSdkConfig> {
+export function getPreset(preset: PresetType): Partial<AdvancedTradeClientConfig> {
   return PRESET_CONFIGS[preset];
 }
 

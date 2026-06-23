@@ -12,13 +12,13 @@
  */
 
 import type { Account, CashBalance, Contract, Order, Position, Product } from '../index';
-import { createConfigFromEnv, PartnerSdk } from '../index';
+import { createConfigFromEnv, TradeClient } from '../index';
 
 async function main() {
   console.log('🚀 Basic Trading Operations Example\n');
 
   // Initialize SDK
-  const sdk = new PartnerSdk({
+  const sdk = new TradeClient({
     ...createConfigFromEnv(),
     syncImmediate: true,
     preset: 'standard',

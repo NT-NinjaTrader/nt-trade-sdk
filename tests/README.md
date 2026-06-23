@@ -8,7 +8,7 @@ This directory contains comprehensive tests for the TradeAPI SDK.
 
 - **`apiClient.test.ts`** - Tests for API client functionality
 - **`mdApiClient.test.ts`** - Tests for market data API client
-- **`partnerSdk.test.ts`** - Tests for PartnerSdk class
+- **`partnerSdk.test.ts`** - Tests for TradeClient class
 - **`configLoader.test.ts`** - Tests for configuration loading
 - **`socket.test.ts`** - Tests for WebSocket handling
 - **`multiplexSocket.test.ts`** - Tests for multiplexed sockets

@@ -5,7 +5,7 @@
  */
 
 // Core SDK
-export { PartnerSdk, type PartnerSdkConfig } from './sdks/partnerSdk';
+export { TradeClient, type TradeClientConfig } from './sdks/tradeClient';
 
 // API Clients
 export { ApiClient } from './sdks/apiClient';

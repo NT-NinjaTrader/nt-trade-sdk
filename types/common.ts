@@ -11,8 +11,6 @@ export type MessageEventHandler = (data: SocketMessage[]) => void;
 type PluralToSingular = {
   accounts: 'account';
   accountRiskStatuses: 'accountRiskStatus';
-  adminAlertSignals: 'adminAlertSignal';
-  adminAlerts: 'adminAlert';
   cashBalances: 'cashBalance';
   cashBalanceLogs: 'cashBalanceLog';
   contracts: 'contract';
@@ -26,20 +24,13 @@ type PluralToSingular = {
   fills: 'fill';
   fillPairs: 'fillPair';
   marginSnapshots: 'marginSnapshot';
-  marketDataSubscriptions: 'marketDataSubscription';
-  marketDataSubscriptionPlans: 'marketDataSubscriptionPlan';
-  marketDataSubscriptionExchangeScopes: 'marketDataSubscriptionExchangeScope';
   orders: 'order';
   orderStrategies: 'orderStrategy';
-  OtherEnvAdminAlertSignals: 'OtherEnvAdminAlertSignal';
   positions: 'position';
   positionLogs: 'positionLog';
   products: 'product';
   productMargins: 'productMargin';
   productSessions: 'productSession';
-  tradingPermissions: 'tradingPermission';
-  tradovateSubscriptions: 'tradovateSubscription';
-  tradovateSubscriptionPlans: 'tradovateSubscriptionPlan';
   users: 'user';
   userAccountAutoLiqs: 'userAccountAutoLiq';
 };
@@ -51,8 +42,6 @@ export type TdvCache = {
 export type PluralEntityName =
   | 'accounts'
   | 'accountRiskStatuses'
-  | 'adminAlertSignals'
-  | 'adminAlerts'
   | 'cashBalances'
   | 'cashBalanceLogs'
   | 'contracts'
@@ -66,28 +55,19 @@ export type PluralEntityName =
   | 'fills'
   | 'fillPairs'
   | 'marginSnapshots'
-  | 'marketDataSubscriptions'
-  | 'marketDataSubscriptionPlans'
-  | 'marketDataSubscriptionExchangeScopes'
   | 'orders'
   | 'orderStrategies'
-  | 'OtherEnvAdminAlertSignals'
   | 'positions'
   | 'positionLogs'
   | 'products'
   | 'productMargins'
   | 'productSessions'
-  | 'tradingPermissions'
-  | 'tradovateSubscriptions'
-  | 'tradovateSubscriptionPlans'
   | 'users'
   | 'userAccountAutoLiqs';
 
 export type EntityName =
   | 'account'
   | 'accountRiskStatus'
-  | 'adminAlertSignal'
-  | 'adminAlert'
   | 'alert'
   | 'alertSignal'
   | 'cashBalance'
@@ -103,20 +83,13 @@ export type EntityName =
   | 'fill'
   | 'fillPair'
   | 'marginSnapshot'
-  | 'marketDataSubscription'
-  | 'marketDataSubscriptionPlan'
-  | 'marketDataSubscriptionExchangeScope'
   | 'order'
   | 'orderStrategy'
-  | 'OtherEnvAdminAlertSignal'
   | 'position'
   | 'positionLog'
   | 'product'
   | 'productMargin'
   | 'productSession'
-  | 'tradingPermission'
-  | 'tradovateSubscription'
-  | 'tradovateSubscriptionPlan'
   | 'user'
   | 'userAccountAutoLiq';
 
