@@ -29,7 +29,7 @@ describe('Maintenance Window Queueing Behavior', () => {
   describe('Maintenance Window Coverage', () => {
     it('should queue requests for covered endpoints during maintenance', () => {
       const logger = new WinstonLogger({
-        stage: 'demo',
+        stage: 'staging',
         enableFile: false,
         level: 'error'
       });
@@ -83,7 +83,7 @@ describe('Maintenance Window Queueing Behavior', () => {
 
     it('should NOT queue requests for uncovered endpoints during maintenance', () => {
       const logger = new WinstonLogger({
-        stage: 'demo',
+        stage: 'staging',
         enableFile: false,
         level: 'error'
       });

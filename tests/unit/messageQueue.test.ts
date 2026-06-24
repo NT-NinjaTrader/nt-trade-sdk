@@ -32,13 +32,10 @@ describe('EnhancedMessageQueue', () => {
     it('should initialize with valid configuration', () => {
       const config: EnhancedMessageQueueConfig = {
         maxSize: 1000,
-        enablePriority: true,
         enableRetries: true,
         maxRetries: 3,
         retryDelay: 1000,
         enableNetworkDetection: true,
-        networkHealthCheckInterval: 30000,
-        networkFailureThreshold: 3,
         maintenanceConfig: {
           enableMaintenanceDetection: true,
           enableAutomaticQueuing: true,
@@ -46,7 +43,6 @@ describe('EnhancedMessageQueue', () => {
           timezone: 'CT',
           queueTimeout: 300000,
           retryAttempts: 3,
-          retryDelay: 5000
         },
         enableMaintenanceQueuing: true,
         queueTimeout: 300000,
@@ -70,13 +66,10 @@ describe('EnhancedMessageQueue', () => {
     it('should initialize with high capacity configuration', () => {
       const config: EnhancedMessageQueueConfig = {
         maxSize: 10000,
-        enablePriority: true,
         enableRetries: true,
         maxRetries: 5,
         retryDelay: 2000,
         enableNetworkDetection: true,
-        networkHealthCheckInterval: 15000,
-        networkFailureThreshold: 5,
         maintenanceConfig: {
           enableMaintenanceDetection: true,
           enableAutomaticQueuing: true,
@@ -84,7 +77,6 @@ describe('EnhancedMessageQueue', () => {
           timezone: 'CT',
           queueTimeout: 600000,
           retryAttempts: 5,
-          retryDelay: 10000
         },
         enableMaintenanceQueuing: true,
         queueTimeout: 600000,
@@ -155,7 +147,6 @@ describe('EnhancedMessageQueue', () => {
     it('should handle priority when enabled', () => {
       const config: Partial<EnhancedMessageQueueConfig> = {
         maxSize: 100,
-        enablePriority: true
       };
 
       messageQueue = new EnhancedMessageQueue(config, mockLogger);
@@ -165,7 +156,6 @@ describe('EnhancedMessageQueue', () => {
     it('should work without priority when disabled', () => {
       const config: Partial<EnhancedMessageQueueConfig> = {
         maxSize: 100,
-        enablePriority: false
       };
 
       messageQueue = new EnhancedMessageQueue(config, mockLogger);
@@ -224,13 +214,10 @@ describe('EnhancedMessageQueue', () => {
     it('should handle all features enabled', () => {
       const config: EnhancedMessageQueueConfig = {
         maxSize: 1000,
-        enablePriority: true,
         enableRetries: true,
         maxRetries: 3,
         retryDelay: 1000,
         enableNetworkDetection: true,
-        networkHealthCheckInterval: 30000,
-        networkFailureThreshold: 3,
         maintenanceConfig: {
           enableMaintenanceDetection: true,
           enableAutomaticQueuing: true,
@@ -238,7 +225,6 @@ describe('EnhancedMessageQueue', () => {
           timezone: 'CT',
           queueTimeout: 300000,
           retryAttempts: 3,
-          retryDelay: 5000
         },
         enableMaintenanceQueuing: true,
         queueTimeout: 300000,
@@ -252,13 +238,10 @@ describe('EnhancedMessageQueue', () => {
     it('should handle all features disabled', () => {
       const config: EnhancedMessageQueueConfig = {
         maxSize: 100,
-        enablePriority: false,
         enableRetries: false,
         maxRetries: 0,
         retryDelay: 1000,
         enableNetworkDetection: false,
-        networkHealthCheckInterval: 30000,
-        networkFailureThreshold: 3,
         maintenanceConfig: {
           enableMaintenanceDetection: false,
           enableAutomaticQueuing: false,
@@ -266,7 +249,6 @@ describe('EnhancedMessageQueue', () => {
           timezone: 'CT',
           queueTimeout: 300000,
           retryAttempts: 0,
-          retryDelay: 5000
         },
         enableMaintenanceQueuing: false,
         queueTimeout: 300000,
@@ -280,7 +262,6 @@ describe('EnhancedMessageQueue', () => {
     it('should handle mixed configuration', () => {
       const config: Partial<EnhancedMessageQueueConfig> = {
         maxSize: 500,
-        enablePriority: true,
         enableRetries: false,
         enableNetworkDetection: true,
         enableMaintenanceQueuing: false

@@ -32,7 +32,6 @@ describe('ConnectionManager', () => {
       liveClient: 'socket',
       simClient: 'rest',
       enableMdSocket: true,
-      useReplaySocket: false,
       enableMultiplexing: false,
       connectionTimeout: 10000,
       shardingDivisor: 4,
@@ -286,7 +285,6 @@ describe('ConnectionManager', () => {
       const allEnabledConfig: ConnectionConfig = {
         ...validConfig,
         enableMdSocket: true,
-        useReplaySocket: true,
         enableMultiplexing: true,
         syncImmediate: true,
         fullOrgSnapshot: true
@@ -299,7 +297,6 @@ describe('ConnectionManager', () => {
       const allDisabledConfig: ConnectionConfig = {
         ...validConfig,
         enableMdSocket: false,
-        useReplaySocket: false,
         enableMultiplexing: false,
         syncImmediate: false,
         fullOrgSnapshot: false
@@ -312,7 +309,6 @@ describe('ConnectionManager', () => {
       const mixedConfig: ConnectionConfig = {
         ...validConfig,
         enableMdSocket: true,
-        useReplaySocket: false,
         enableMultiplexing: true,
         syncImmediate: false,
         fullOrgSnapshot: true
