@@ -1,6 +1,7 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { writeFileSync } from 'fs';
+import { pathToFileURL } from 'url';
 import { createSampleEnvFile } from '../sdks/configLoader';
 
 function generateEnvFile(outputPath: string = '.env'): void {
@@ -19,7 +20,7 @@ function generateEnvFile(outputPath: string = '.env'): void {
 }
 
 // If run directly
-if (import.meta.main) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const outputPath = process.argv[2] || '.env';
   generateEnvFile(outputPath);
 }

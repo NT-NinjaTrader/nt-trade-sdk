@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -33,7 +33,7 @@ const setupSteps: SetupStep[] = [
 
         if (missingDeps.length > 0) {
           console.log(`❌ Missing dependencies: ${missingDeps.join(', ')}`);
-          console.log('Run: bun install');
+          console.log('Run: npm install');
           return false;
         }
 
@@ -53,7 +53,7 @@ const setupSteps: SetupStep[] = [
       try {
         if (!existsSync('.husky/pre-commit')) {
           console.log('📦 Installing Husky hooks...');
-          execSync('bun run prepare', { stdio: 'inherit' });
+          execSync('npm run prepare', { stdio: 'inherit' });
         } else {
           console.log('✅ Husky hooks already installed');
         }
@@ -98,7 +98,7 @@ const setupSteps: SetupStep[] = [
     action: async () => {
       try {
         console.log('🔍 Testing ESLint configuration...');
-        execSync('bun run lint:check', { stdio: 'pipe' });
+        execSync('npm run lint:check', { stdio: 'pipe' });
         console.log('✅ ESLint configuration is working');
         return true;
       } catch (error) {
@@ -114,7 +114,7 @@ const setupSteps: SetupStep[] = [
     action: async () => {
       try {
         console.log('🎨 Testing Prettier configuration...');
-        execSync('bun run format:check', { stdio: 'pipe' });
+        execSync('npm run format:check', { stdio: 'pipe' });
         console.log('✅ Prettier configuration is working');
         return true;
       } catch (error) {
@@ -189,14 +189,14 @@ async function runSetup() {
     console.log('\n🚀 Next steps:');
     console.log('   1. Open the project in VSCode');
     console.log('   2. Install recommended extensions');
-    console.log('   3. Run: bun run dev');
+    console.log('   3. Run: npm run dev');
     console.log('   4. Start coding!');
   } else {
     console.log('\n⚠️  Some setup steps failed. Check the output above for details.');
     console.log('\n💡 You can run individual commands manually:');
-    console.log('   - bun run prepare (for Husky)');
-    console.log('   - bun run lint (for ESLint)');
-    console.log('   - bun run format (for Prettier)');
+    console.log('   - npm run prepare (for Husky)');
+    console.log('   - npm run lint (for ESLint)');
+    console.log('   - npm run format (for Prettier)');
   }
 }
 

@@ -54,7 +54,6 @@
     "**/dist": true,
     "**/*.js.map": true,
     "**/*.d.ts.map": true,
-    "**/bun.lock": true
   },
 
   // Terminal settings

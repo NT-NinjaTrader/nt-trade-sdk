@@ -4,7 +4,7 @@
     {
       "label": "Build SDK",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "build"],
       "group": {
         "kind": "build",
@@ -23,7 +23,7 @@
     {
       "label": "Build TypeScript",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "build:ts"],
       "group": "build",
       "presentation": {
@@ -39,7 +39,7 @@
     {
       "label": "Watch Build",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "build:watch"],
       "group": "build",
       "isBackground": true,
@@ -72,7 +72,7 @@
     {
       "label": "Type Check",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "type-check"],
       "group": "test",
       "presentation": {
@@ -88,7 +88,7 @@
     {
       "label": "Lint",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "lint"],
       "group": "test",
       "presentation": {
@@ -104,7 +104,7 @@
     {
       "label": "Format Code",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "format"],
       "group": "test",
       "presentation": {
@@ -119,7 +119,7 @@
     {
       "label": "Run Tests",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "test"],
       "group": {
         "kind": "test",
@@ -137,7 +137,7 @@
     {
       "label": "Clean Build",
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "clean"],
       "group": "build",
       "presentation": {

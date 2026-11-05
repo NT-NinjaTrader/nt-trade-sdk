@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { execSync } from 'child_process';
 import { mkdir, rm } from 'fs/promises';
@@ -20,7 +20,7 @@ async function buildTypeScript() {
   try {
     console.log('🔧 Building TypeScript with tsc...');
 
-    execSync(`bunx tsc --project ${TSCONFIG}`, {
+    execSync(`npx tsc --project ${TSCONFIG}`, {
       stdio: 'inherit',
       cwd: process.cwd()
     });

@@ -21,7 +21,7 @@ class MockWebSocket {
   binaryType: 'blob' | 'arraybuffer' = 'blob';
 
   onopen: ((event: Event) => void) | null = null;
-  onclose: ((event: CloseEvent) => void) | null = null;
+  onclose: ((event: Event) => void) | null = null;
   onmessage: ((event: MessageEvent) => void) | null = null;
   onerror: ((event: Event) => void) | null = null;
 
@@ -35,7 +35,7 @@ class MockWebSocket {
   emit = vi.fn();
 }
 
-global.WebSocket = MockWebSocket as any;
+(globalThis as any).WebSocket = MockWebSocket as any;
 
 // Mock fetch for REST API tests
 global.fetch = vi.fn() as any;

@@ -8,7 +8,7 @@ developers building trading tools and integrations.
 1. **Configure your environment variables**
 
    ```bash
-   bun run generate:env
+   npm run generate:env
    # then edit the generated .env with your credentials
    ```
 
@@ -39,7 +39,7 @@ Fundamental Trade API operations — the place to start.
 - A safely commented-out order-placement snippet
 
 ```bash
-bun run example:basic
+npm run example:basic
 ```
 
 ### 2. Market Data (`market-data.ts`)
@@ -51,7 +51,7 @@ Stream real-time market data over the market-data socket.
 - Listen for streaming updates and clean up on exit
 
 ```bash
-bun run example:md ESU6 NQU6
+npm run example:md ESU6 NQU6
 ```
 
 > Pass one or more front-month contract symbols. Update them to the current
@@ -66,7 +66,7 @@ Real-time profit/loss monitoring, combining positions with market data.
 - Optional filtering by product and account
 
 ```bash
-bun run example:pl
+npm run example:pl
 ```
 
 Requires market data (`enableMdSocket: true`) and at least one open position.
@@ -81,13 +81,13 @@ Close your own open positions — useful for risk management and end-of-session 
 
 ```bash
 # Close one position
-bun run example:liquidate one <accountId> <symbol>
+npm run example:liquidate one <accountId> <symbol>
 
 # Close all positions for an account
-bun run example:liquidate all <accountId>
+npm run example:liquidate all <accountId>
 
 # Monitor position updates
-bun run example:liquidate monitor <accountId>
+npm run example:liquidate monitor <accountId>
 ```
 
 ## Key Concepts

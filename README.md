@@ -11,7 +11,7 @@ orders, monitoring positions and balances, and streaming real-time market data.
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) >= 1.0 (or Node.js >= 18)
+- Node.js >= 18
 - Valid API credentials (username, password, appId, cid, sec)
 
 ### 1. Clone and Install
@@ -19,7 +19,7 @@ orders, monitoring positions and balances, and streaming real-time market data.
 ```bash
 git clone https://github.com/NT-NinjaTrader/nt-trade-sdk.git
 cd nt-trade-sdk
-bun install
+npm install
 ```
 
 ### 2. Configure Credentials
@@ -27,7 +27,7 @@ bun install
 Generate a `.env` template and fill in your credentials:
 
 ```bash
-bun run generate:env
+npm run generate:env
 ```
 
 Or copy the example below into `.env`:
@@ -48,9 +48,9 @@ TRADE_SDK_PRESET=standard
 ### 3. Run an Example
 
 ```bash
-bun run example:basic        # accounts, positions, orders, contracts
-bun run example:md ESU6      # stream real-time quotes + DOM
-bun run example:pl           # real-time P&L
+npm run example:basic        # accounts, positions, orders, contracts
+npm run example:md ESU6      # stream real-time quotes + DOM
+npm run example:pl           # real-time P&L
 ```
 
 See the [examples directory](./examples/) for all available examples:
@@ -182,14 +182,14 @@ For advanced socket, REST, reconnection, rate limiting, message queue, and maint
 configuration, see the [API Reference](docs/public/API_REFERENCE.md).
 
 All configuration options can be set via environment variables (`TRADE_SDK_*`) or passed
-directly to the `TradeClient` constructor. Run `bun run generate:env` to see all available options.
+directly to the `TradeClient` constructor. Run `npm run generate:env` to see all available options.
 
 ## Testing
 
 ```bash
-bun test                    # run all tests
-bun run test:watch          # watch mode
-bun run test:coverage       # with coverage
+npm test                    # run all tests
+npm run test:watch          # watch mode
+npm run test:coverage       # with coverage
 ```
 
 ## Documentation
@@ -201,6 +201,6 @@ bun run test:coverage       # with coverage
 To generate full TypeDoc documentation (optional):
 
 ```bash
-bun run docs           # markdown output to docs/api/
-bun run docs:html      # HTML output to docs/html/
+npm run docs           # markdown output to docs/api/
+npm run docs:html      # HTML output to docs/html/
 ```

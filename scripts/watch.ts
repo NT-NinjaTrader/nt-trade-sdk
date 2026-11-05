@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { context } from 'esbuild';
 import { mkdir, rm } from 'fs/promises';

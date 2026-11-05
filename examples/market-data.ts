@@ -10,10 +10,10 @@
  * - Listen for streaming updates and clean up subscriptions
  *
  * Usage:
- *   bun run examples/market-data.ts <symbol> [<symbol> ...]
+ *   npx tsx examples/market-data.ts <symbol> [<symbol> ...]
  *
  * Example:
- *   bun run examples/market-data.ts ESU6 NQU6
+ *   npx tsx examples/market-data.ts ESU6 NQU6
  *
  * Notes:
  * - Symbols are front-month futures contract symbols (e.g. ESU6, NQU6, MNQU6).
