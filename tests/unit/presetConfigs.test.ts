@@ -5,6 +5,7 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { applyPreset, listPresets, PRESET_CONFIGS } from '../../sdks/presetConfigs';
+import type { RateLimitConfig } from '../../sdks/rateLimiter';
 import { TradeClient } from '../../sdks/tradeClient';
 import { createTestConfig } from '../setup';
 
@@ -100,7 +101,7 @@ describe('Preset Configurations', () => {
           password: 'test-pass',
           appId: 'test-app',
           appVersion: '1.0.0',
-          cid: 'test-cid',
+          cid: 12345,
           sec: 'test-sec'
         }
       };
@@ -121,7 +122,7 @@ describe('Preset Configurations', () => {
           password: 'test-pass',
           appId: 'test-app',
           appVersion: '1.0.0',
-          cid: 'test-cid',
+          cid: 12345,
           sec: 'test-sec'
         },
         enableMdSocket: true // Override preset
@@ -141,12 +142,11 @@ describe('Preset Configurations', () => {
           password: 'test-pass',
           appId: 'test-app',
           appVersion: '1.0.0',
-          cid: 'test-cid',
+          cid: 12345,
           sec: 'test-sec'
         },
-        rateLimiting: {
-          requestsPerSecond: 25 // Override preset rate limit
-        }
+        // Partial override — applyPreset deep-merges the rest from the preset.
+        rateLimiting: { requestsPerSecond: 25 } as RateLimitConfig
       };
 
       const configWithPreset = applyPreset(baseConfig, 'standard');

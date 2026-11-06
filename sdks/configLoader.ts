@@ -3,7 +3,7 @@ import { ConfigError } from '../api/errors';
 import type { TdvStage } from '../types/common';
 import { DEFAULT_MAINTENANCE_CONFIG } from '../types/maintenance';
 import { type PresetType } from './presetConfigs';
-import type { AdvancedTradeClientConfig, TradeClientConfig } from './tradeClient';
+import type { AdvancedTradeClientConfig } from './tradeClient';
 
 // Load environment variables from .env file
 config();
@@ -1168,13 +1168,15 @@ function validateConfig(config: Partial<AdvancedTradeClientConfig>): void {
  * const sdk = new TradeClient(config);
  * ```
  */
-export function createConfigFromEnv(env: NodeJS.ProcessEnv = process.env): TradeClientConfig {
+export function createConfigFromEnv(
+  env: NodeJS.ProcessEnv = process.env
+): AdvancedTradeClientConfig {
   const envConfig = loadConfigFromEnv(env);
 
   // Validate the configuration before returning
   validateConfig(envConfig);
 
-  return envConfig as TradeClientConfig;
+  return envConfig as AdvancedTradeClientConfig;
 }
 
 /**

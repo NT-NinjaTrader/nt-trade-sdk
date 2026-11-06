@@ -58,7 +58,13 @@ describe('openPLCalculator', () => {
     entries: {
       Bid: { price: 5010.0, size: 10 },
       Offer: { price: 5010.25, size: 10 },
-      Trade: { price: 5010.0, size: 1 }
+      Trade: { price: 5010.0, size: 1 },
+      TotalTradeVolume: {},
+      LowPrice: {},
+      OpenInterest: {},
+      OpeningPrice: {},
+      HighPrice: {},
+      SettlementPrice: {}
     }
   };
 
