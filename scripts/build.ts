@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { build } from 'esbuild';
 import { mkdir, rm } from 'fs/promises';
@@ -70,7 +70,7 @@ async function buildTypes() {
   try {
     console.log('Building TypeScript declarations...');
     const { execSync } = await import('child_process');
-    execSync('bunx tsc --project tsconfig.build.json', { stdio: 'inherit', cwd: process.cwd() });
+    execSync('npx tsc --project tsconfig.build.json', { stdio: 'inherit', cwd: process.cwd() });
     console.log('TypeScript declarations built');
     return true;
   } catch (error) {

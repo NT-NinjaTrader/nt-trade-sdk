@@ -27,19 +27,19 @@ This directory contains comprehensive tests for the TradeAPI SDK.
 ### All Tests
 
 ```bash
-bun run test
+npm run test
 ```
 
 ### Watch Mode
 
 ```bash
-bun run test:watch
+npm run test:watch
 ```
 
 ### Coverage Report
 
 ```bash
-bun run test:coverage
+npm run test:coverage
 ```
 
 ## Test Coverage

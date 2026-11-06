@@ -233,15 +233,15 @@ async function main() {
     console.error('❌ Invalid arguments');
     console.log('\nUsage:');
     console.log('  Liquidate one position:');
-    console.log('    bun run examples/liquidate-positions.ts one <accountId> <symbol>');
+    console.log('    npx tsx examples/liquidate-positions.ts one <accountId> <symbol>');
     console.log('\n  Liquidate all positions:');
-    console.log('    bun run examples/liquidate-positions.ts all <accountId>');
+    console.log('    npx tsx examples/liquidate-positions.ts all <accountId>');
     console.log('\n  Monitor positions:');
-    console.log('    bun run examples/liquidate-positions.ts monitor <accountId>');
+    console.log('    npx tsx examples/liquidate-positions.ts monitor <accountId>');
     console.log('\nExamples:');
-    console.log('  bun run examples/liquidate-positions.ts one 123456 ESZ4');
-    console.log('  bun run examples/liquidate-positions.ts all 123456');
-    console.log('  bun run examples/liquidate-positions.ts monitor 123456');
+    console.log('  npx tsx examples/liquidate-positions.ts one 123456 ESZ4');
+    console.log('  npx tsx examples/liquidate-positions.ts all 123456');
+    console.log('  npx tsx examples/liquidate-positions.ts monitor 123456');
     process.exit(1);
   }
 

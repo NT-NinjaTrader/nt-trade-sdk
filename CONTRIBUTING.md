@@ -4,7 +4,7 @@ Guide for setting up and working with the SDK after forking.
 
 ## Prerequisites
 
-- [Bun](https://bun.sh/) >= 1.0 (or Node.js >= 18)
+- Node.js >= 18
 - Git
 - VS Code (recommended)
 
@@ -13,7 +13,7 @@ Guide for setting up and working with the SDK after forking.
 ```bash
 git clone <your-fork-url>
 cd trade-sdk
-bun install
+npm install
 ```
 
 ## Environment Configuration
@@ -21,7 +21,7 @@ bun install
 Generate a `.env` template:
 
 ```bash
-bun run generate:env
+npm run generate:env
 ```
 
 Fill in your TradeAPI credentials:
@@ -42,23 +42,23 @@ rate limiting, message queuing, and maintenance window detection.
 ## Development
 
 ```bash
-bun run dev          # Run dev-test.ts for quick SDK testing
-bun run type-check   # Verify TypeScript compiles
+npm run dev          # Run dev-test.ts for quick SDK testing
+npm run type-check   # Verify TypeScript compiles
 ```
 
 Run the automated setup script to configure hooks and verify tooling:
 
 ```bash
-bun run dev:setup
+npm run dev:setup
 ```
 
 ## Testing
 
 ```bash
-bun run test            # Run all tests
-bun run test:watch      # Watch mode
-bun run test:coverage   # With coverage
-bun run test:ui         # Browser UI
+npm run test            # Run all tests
+npm run test:watch      # Watch mode
+npm run test:coverage   # With coverage
+npm run test:ui         # Browser UI
 ```
 
 ## Building
@@ -67,10 +67,10 @@ The build step is optional -- examples import directly from source. Use it when
 you need bundled output for deployment.
 
 ```bash
-bun run build        # ESM + CJS bundles + type declarations
-bun run build:api    # Regenerate API types from schema
-bun run build:ts     # TypeScript declarations only
-bun run clean        # Remove dist/
+npm run build        # ESM + CJS bundles + type declarations
+npm run build:api    # Regenerate API types from schema
+npm run build:ts     # TypeScript declarations only
+npm run clean        # Remove dist/
 ```
 
 ## Code Quality
@@ -78,10 +78,10 @@ bun run clean        # Remove dist/
 Pre-commit hooks run linting and formatting automatically via Husky.
 
 ```bash
-bun run lint         # Lint and auto-fix
-bun run format       # Format all files
-bun run lint:check   # Check only
-bun run format:check # Check only
+npm run lint         # Lint and auto-fix
+npm run format       # Format all files
+npm run lint:check   # Check only
+npm run format:check # Check only
 ```
 
 ## Project Structure

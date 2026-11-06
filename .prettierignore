@@ -12,7 +12,6 @@ scripts/cattedapi.json
 scripts/build-api.ts
 
 # Lock files
-bun.lock
 package-lock.json
 yarn.lock
 
